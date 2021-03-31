@@ -5,5 +5,5 @@
 
 import hello
 
-name = bob
-my_function(name)
+
+my_function()
