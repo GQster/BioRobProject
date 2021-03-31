@@ -1,2 +1,2 @@
-def my_function(name):
-  print("Hello " + name +" from a function")
+def my_function(n):
+    print("Hello "+n+" from a function")

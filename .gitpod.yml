@@ -1,5 +1,5 @@
 tasks:
 #  - init: 'echo "TODO: Replace with init/build command"'
 #    command: 'echo "TODO: Replace with command to start project"'
-  - init: pip3 install -r requirements.txt
+  - init: pip3 install -r workspace/BioRobProject/requirements.txt
     command: python3 main.py
