@@ -11,8 +11,3 @@ from hello import *             #imports entire file
 name = "bob"
 
 my_function(name)
-
-raw_array= [[1,2,3],[3,2,1]]
-raw_array = np.array(raw_array)
-print(np.mean(raw_array))
- 
