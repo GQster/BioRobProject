@@ -1,2 +1,6 @@
+# RunL pip3 install -r requirements.txt
+
 numpy
 pandas
+openpyxl
+display
