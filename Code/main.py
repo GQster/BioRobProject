@@ -1,49 +1,29 @@
-
-#run this line:
-#pyenv version
-#if not python 3.7.9
-#pyenv install 3.7.9
-import numpy as np
-import pandas as pd
-from IPython.display import display     #for display
-from hmmlearn import hmm                #for the hidden markov model
-
-#from hello import *             #imports entire file
-#from hello import my_function  #imports sepcific function
-
-sleep_file = "Data/1066528_labeled_sleep.csv"
-HR_file = "Data/1066528_heartrate.csv"
+from functions import *     #imports our functions
 
 
-def Sleep_HR_data_processor(sleep_file, HR_file, fileNumber):        #files as .csv. fileNumber is the xth time function is called (used to name the files differently)
+HR_list= ['1066528_heartrate.txt', '1360686_heartrate.txt', '1449548_heartrate.txt', '1455390_heartrate.txt', '1818471_heartrate.txt', 
+                '2598705_heartrate.txt', '2638030_heartrate.txt', '3509524_heartrate.txt', '3997827_heartrate.txt', '4018081_heartrate.txt', 
+                '4314139_heartrate.txt', '4426783_heartrate.txt', '46343_heartrate.txt', '5132496_heartrate.txt', '5383425_heartrate.txt', 
+                '5498603_heartrate.txt', '5797046_heartrate.txt', '6220552_heartrate.txt', '759667_heartrate.txt', '7749105_heartrate.txt',
+                '781756_heartrate.txt', '8000685_heartrate.txt', '8173033_heartrate.txt', '8258170_heartrate.txt', '844359_heartrate.txt', 
+                '8530312_heartrate.txt', '8686948_heartrate.txt', '8692923_heartrate.txt', '9106476_heartrate.txt', '9618981_heartrate.txt', 
+                '9961348_heartrate.txt']
 
-    df_sleep = pd.read_csv(sleep_file)
-    df_sleep.columns =['TimeSec', 'SleepLVL']
-    df_hr = pd.read_csv(HR_file)
-    df_hr.drop_duplicates()
-    df_hr.columns =['TimeSec', 'HR']
-
-    #temp_df = df_sleep.iloc[:,0]                        #used to loop though the DF 
-    df_Sleep_HR = df_sleep                              #coppies sleep time column and data column
-    df_Sleep_HR["HR"] = 0                               #adds a column named HR
-
-    for x in range(len(df_sleep)):
-        #display(x)
-        search_value = df_sleep.iloc[x, 0]                  #df.iloc[row,column]
-        result_index = df_hr['TimeSec'].sub(search_value).abs().idxmin()    # returns row of hr data
-        #display(df_hr.iloc[result_index, 1])           #displays the value found
-        df_Sleep_HR.iloc[x, 2] = df_hr.iloc[result_index, 1]      #copy desired data to temp_df
-    df_Sleep_HR.to_csv('Data/Check/Sleep_HR_{}.csv'.format(fileNumber))                  #saves as a .csv 
-    return df_Sleep_HR
+Sleep_list= ['1066528_labeled_sleep.txt', '1360686_labeled_sleep.txt', '1449548_labeled_sleep.txt', '1455390_labeled_sleep.txt', '1818471_labeled_sleep.txt', 
+                '2598705_labeled_sleep.txt', '2638030_labeled_sleep.txt', '3509524_labeled_sleep.txt', '3997827_labeled_sleep.txt', '4018081_labeled_sleep.txt', 
+                '4314139_labeled_sleep.txt', '4426783_labeled_sleep.txt', '46343_labeled_sleep.txt', '5132496_labeled_sleep.txt', '5383425_labeled_sleep.txt', 
+                '5498603_labeled_sleep.txt', '5797046_labeled_sleep.txt', '6220552_labeled_sleep.txt', '759667_labeled_sleep.txt', '7749105_labeled_sleep.txt',
+                '781756_labeled_sleep.txt', '8000685_labeled_sleep.txt', '8173033_labeled_sleep.txt', '8258170_labeled_sleep.txt', '844359_labeled_sleep.txt', 
+                '8530312_labeled_sleep.txt', '8686948_labeled_sleep.txt', '8692923_labeled_sleep.txt', '9106476_labeled_sleep.txt', '9618981_labeled_sleep.txt', 
+                '9961348_labeled_sleep.txt']
 
 
-processed_data = Sleep_HR_data_processor(sleep_file, HR_file, 1) 
-display(processed_data)
+#convertFiles(HR_list, Sleep_list)
+merge_Sleep_HR_Data(HR_list, Sleep_list)
 
 
 
-
-
+#display(processed_data)
 
 
 
