@@ -18,15 +18,24 @@ Sleep_list= ['1066528_labeled_sleep.txt', '1360686_labeled_sleep.txt', '1449548_
                 '9961348_labeled_sleep.txt']
 
 
-#convertFiles(HR_list, Sleep_list)
-merge_Sleep_HR_Data(HR_list, Sleep_list)
+#convertFiles(HR_list, Sleep_list)                      # Changes space to "," for Sleep files
+#merge_Sleep_HR_Data(HR_list, Sleep_list)               # Links and adds HR data and Sleep data to one file
 
-
-
-#display(processed_data)
+# Sleep_HR files with negatives: 1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 16, 17, 19, 21, 22, 24, 25, 26, 27,28
+dataChecker()                                           # Checks for and deletes lines with SleepLVL values of -1
 
 
 
 
 #Hidden Mrkov Model
-#model = hmm.GaussianHMM(n_components=3, covariance_type="full")
+
+# https://towardsdatascience.com/hidden-markov-model-implemented-from-scratch-72865bda430e
+# https://jonathan-hui.medium.com/machine-learning-hidden-markov-model-hmm-31660d217a61
+
+
+# df_merged = pd.read_csv('Data/Merged/{}'.format(sleep_file))
+# df_merged.columns =['','TimeSec','SleepLVL','HR']
+#model = hmm.GaussianHMM(n_components=6, covariance_type="full")
+# n_components = 6                number of states in the model              (0, N1, N2, N3, N4, 5)
+# X = 
+
