@@ -22,9 +22,9 @@ X, Y = get_data()                                                               
 #display(X, Y)
 
 
-# model = hmm.GaussianHMM(n_components=2, covariance_type="full")
-# n_components = 2                number of states in the model                 (awake, asleep)
-# model.fit()
+model = hmm.GaussianHMM(n_components=2, covariance_type="full")
+n_components = 2                # number of states in the model                 (awake, asleep)
+model.fit(X)
 # model.startprob_ = np.array([0.8, 0.1, 0.025, 0.025, 0.025, 0.025])             # starting probabilities, most likely start awake, maybe in state N1 bc of -1 removal
 # model.transmat_ = np.array([[0.8, 0.1, 0.025, 0.025, 0.025, 0.025],
 #                           [0.1, 0.7, 0.1, 0.034, 0.033, 0.033],
@@ -33,8 +33,8 @@ X, Y = get_data()                                                               
 #                            [0.033, 0.033, 0.034, 0.1, 0.7, 0.1],
 #                            [0.025, 0.025, 0.025, 0.025, 0.1, 0.8]])
 
-#remodel = hmm.GaussianHMM(n_components=6, covariance_type="full")
-#remodel.fit(X)
+remodel = hmm.GaussianHMM(n_components=6, covariance_type="full")
+remodel.fit(X)
 
 
 
