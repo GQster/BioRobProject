@@ -7,10 +7,5 @@ from functions import *     #imports our functions
 
 
 
-
-
-
-
-
 X= get_data('Sleep_HR_0.csv')                     # Returns X; holding sleep states and HR data
 display(X)
