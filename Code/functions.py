@@ -89,7 +89,7 @@ def dataChecker():                                          # Checks for and del
     #end dataChecker
 
   
-def Fixdata()                                               # Fixes all our data
+def Fixdata():                                               # Fixes all our data
     convertFiles(HR_list, Sleep_list)                      # Changes space to "," for Sleep files
     merge_Sleep_HR_Data(HR_list, Sleep_list)               # Links and adds HR data and Sleep data to one file
 
