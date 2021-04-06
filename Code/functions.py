@@ -27,8 +27,22 @@ Sleep_list= ['1066528_labeled_sleep.txt', '1360686_labeled_sleep.txt', '1449548_
                 '781756_labeled_sleep.txt', '8000685_labeled_sleep.txt', '8173033_labeled_sleep.txt', '8258170_labeled_sleep.txt', '844359_labeled_sleep.txt', 
                 '8530312_labeled_sleep.txt', '8686948_labeled_sleep.txt', '8692923_labeled_sleep.txt', '9106476_labeled_sleep.txt', '9618981_labeled_sleep.txt', 
                 '9961348_labeled_sleep.txt']
+Sleep_HR_list = ['Sleep_HR_0.csv', 'Sleep_HR_1.csv', 'Sleep_HR_2.csv', 'Sleep_HR_3.csv', 'Sleep_HR_4.csv', 'Sleep_HR_5.csv', 'Sleep_HR_6.csv', 'Sleep_HR_7.csv', 'Sleep_HR_8.csv', 'Sleep_HR_9.csv', 
+                'Sleep_HR_10.csv', 'Sleep_HR_11.csv', 'Sleep_HR_12.csv', 'Sleep_HR_13.csv', 'Sleep_HR_14.csv', 'Sleep_HR_15.csv', 'Sleep_HR_16.csv', 'Sleep_HR_17.csv', 'Sleep_HR_18.csv', 'Sleep_HR_19.csv', 
+                'Sleep_HR_20.csv', 'Sleep_HR_21.csv', 'Sleep_HR_22.csv', 'Sleep_HR_23.csv', 'Sleep_HR_24.csv', 'Sleep_HR_25.csv', 'Sleep_HR_26.csv', 'Sleep_HR_27.csv', 'Sleep_HR_28.csv', 'Sleep_HR_29.csv', 
+                'Sleep_HR_30.csv']
 
-
+def get_data(Sleep_HR_list = Sleep_HR_list):                                                 # Returns X and Y. X holding sleep states and Y holding HR data
+    for filex in Sleep_HR_list:
+        df_file = pd.read_csv('Data/Merged/{}'.format(filex))
+        
+        for x in range(len(df_file)):
+            X = df_file.iloc[:,2]
+            Y = df_file.iloc[:,3]
+            #end for
+        #end for
+    return X, Y 
+    #end get_data   
 
 def convertFiles(HR_list, Sleep_list):                      # Changes space to "," for Sleep files
     #HR_list = os.listdir(path='Data/HR')
