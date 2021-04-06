@@ -12,9 +12,6 @@ import os
 #from hello import my_function  #imports sepcific function
 
 
-
-
-
 HR_list= ['1066528_heartrate.txt', '1360686_heartrate.txt', '1449548_heartrate.txt', '1455390_heartrate.txt', '1818471_heartrate.txt', 
                 '2598705_heartrate.txt', '2638030_heartrate.txt', '3509524_heartrate.txt', '3997827_heartrate.txt', '4018081_heartrate.txt', 
                 '4314139_heartrate.txt', '4426783_heartrate.txt', '46343_heartrate.txt', '5132496_heartrate.txt', '5383425_heartrate.txt', 
@@ -33,8 +30,6 @@ Sleep_list= ['1066528_labeled_sleep.txt', '1360686_labeled_sleep.txt', '1449548_
 
 
 
-
-
 def convertFiles(HR_list, Sleep_list):                      # Changes space to "," for Sleep files
     #HR_list = os.listdir(path='Data/HR')
     #Sleep_list = os.listdir(path='Data/Pre_Processed_Sleep')               # Makes a list of all the files in folder
@@ -42,9 +37,9 @@ def convertFiles(HR_list, Sleep_list):                      # Changes space to "
     for file in Sleep_list:
         with open("Data/Pre_Processed_Sleep/{}".format(file)) as infile, open("Data/Sleep/{}".format(file), 'w') as outfile:
             outfile.write(infile.read().replace(" ", ","))  #replaces spaces with ","
-        
-
-
+            #end with
+        #end for
+    #end convertFiles
 
 
 def Sleep_HR_data_processor(sleep_file, HR_file, fileNumber):# files as .csv. fileNumber is the xth time function is called (used to name the files differently)
@@ -64,18 +59,17 @@ def Sleep_HR_data_processor(sleep_file, HR_file, fileNumber):# files as .csv. fi
         result_index = df_hr['TimeSec'].sub(search_value).abs().idxmin()    # returns row of hr data
         #display(df_hr.iloc[result_index, 1])                               #displays the value found
         df_Sleep_HR.iloc[x, 2] = df_hr.iloc[result_index, 1]                #copy desired data 
+        #end for
     df_Sleep_HR.to_csv('Data/Merged/Sleep_HR_{}.csv'.format(fileNumber))    #saves as a .csv 
     return df_Sleep_HR
- 
+    #end Sleep_HR_data_processor
 
  
-
 def merge_Sleep_HR_Data(HR_list, Sleep_list):               # Links and adds HR data and Sleep data to one file
     for fileNum in range(len(Sleep_list)):
         processed_data = Sleep_HR_data_processor(Sleep_list[fileNum], HR_list[fileNum], fileNum)      #iterates through all the files, merging sleep and HR data 
-
-
-
+        #end for
+    #end merge_Sleep_HR_Data
 
 
 def dataChecker():                                          # Checks for and deletes lines with SleepLVL values of -1
@@ -91,16 +85,14 @@ def dataChecker():                                          # Checks for and del
         df.columns =['index', 'TimeSec', 'SleepLVL', 'HR']
         df = df.drop(columns=['index'])
         df.to_csv('Data/Merged/{}'.format(file))            # saves as a .csv 
+        #end for
+    #end dataChecker
 
   
-  
-
-  
-                                          
-
-def Fixdata()                                              # Fixes all our data
+def Fixdata()                                               # Fixes all our data
     convertFiles(HR_list, Sleep_list)                      # Changes space to "," for Sleep files
     merge_Sleep_HR_Data(HR_list, Sleep_list)               # Links and adds HR data and Sleep data to one file
 
     # Sleep_HR files with negatives: 1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 16, 17, 19, 21, 22, 24, 25, 26, 27,28
     dataChecker()                                          # Checks for and deletes lines with SleepLVL values of -1
+    #end Fixdata
