@@ -8,6 +8,12 @@ from IPython.display import display     #for display
 from hmmlearn import hmm                #for the hidden markov model
 import os 
 import glob
+import scipy
+import sklearn
+from sklearn import svm
+from sklearn.metrics import accuracy_score  
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import KFold
 
 
 HR_list= ['1066528_heartrate.txt', '1360686_heartrate.txt', '1449548_heartrate.txt', '1455390_heartrate.txt', '1818471_heartrate.txt', 

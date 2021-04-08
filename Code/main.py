@@ -1,4 +1,6 @@
 from functions import *     #imports our functions
+from sklearn.model_selection import cross_val_score
+from sklearn.metrics import accuracy_score
 
 #preprocess_data()                                                          # Fixes all our data. 
 #combineAllCSVs()                                                           # Merges all CSV files into one. Columns: ['Original Index','TimeSec', 'SleepLVL', 'HR']
@@ -8,7 +10,7 @@ from functions import *     #imports our functions
 # Y = HR
 # N = number of states the hidden variable (sleep) can be in at any time t. (0-5)
 os.chdir("/workspace/BioRobProject")
-X = get_dataone('Sleep_HR_14.csv')                                               # Returns X and Y. X holding sleep states and Y holding HR data
+X = get_dataone('Sleep_HR_14.csv')                                          # Returns X and Y. X holding sleep states and Y holding HR data
 #X = get_dataALL('combined_csv.csv')   
 #display(X, Y)
 
@@ -55,3 +57,27 @@ print('\n')
 print('transmat: ','\n', remodel.transmat_)
 print('\n')
 print('Covariance: ','\n', remodel.covars_)
+
+
+
+scores_train = []
+scores_test = []
+#best_svc = svm.SVC(kernel='poly')
+#best_svc.fit(X, y)
+X = get_dataone('Sleep_HR_14.csv')
+y = get_dataone('Sleep_HR_14.csv')
+X_test = X
+y_test = predictionOutput
+X_train = X
+y_train = y
+#tempTest = accuracy_score(X_test, y_test)
+#tempTrain = accuracy_score(X_train, y_train)
+#scores_test.append(tempTest)
+#scores_train.append(tempTrain)
+
+accuracy_score(y_train, y_test)
+print(accuracy_score)
+print('SVM 10 fold: ')
+print('Train Results: ', scores_train)
+print('Test Results: ', scores_test)
+print('\nMean Train: ', np.mean(scores_train), '\nMean Test: ', np.mean(scores_test))
