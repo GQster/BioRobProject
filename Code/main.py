@@ -4,17 +4,12 @@ from functions import *     #imports our functions
 #combineAllCSVs()                                                           # Merges all CSV files into one. Columns: ['Original Index','TimeSec', 'SleepLVL', 'HR']
 
 
-
-
-# df_merged = pd.read_csv('Data/Merged/{}'.format(sleep_file))
-# df_merged.columns =['','TimeSec','SleepLVL','HR']
-
 # X = sleep
 # Y = HR
 # N = number of states the hidden variable (sleep) can be in at any time t. (0-5)
 os.chdir("/workspace/BioRobProject")
-X = get_dataALL('combined_csv.csv')                                               # Returns X and Y. X holding sleep states and Y holding HR data
-#X = get_dataone('Sleep_HR_0.csv')   
+X = get_dataone('Sleep_HR_14.csv')                                               # Returns X and Y. X holding sleep states and Y holding HR data
+#X = get_dataALL('combined_csv.csv')   
 #display(X, Y)
 
 
@@ -53,11 +48,10 @@ display(predictionOutput)
 np.savetxt("mainPrediction.csv", predictionOutput, delimiter=",")                      # saves as a .csv 
 
 
-print('Score:')
+print('Score: ', remodel.score(X))
 print('\n')
-remodel.score(X)
-display(remodel.score(X))
-print('Means:')
-display(remodel.means_)
-print('transmat:')
-display(remodel.transmat_)
+print('Means: ','\n', remodel.means_)
+print('\n')
+print('transmat: ','\n', remodel.transmat_)
+print('\n')
+print('Covariance: ','\n', remodel.covars_)
