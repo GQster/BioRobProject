@@ -7,7 +7,7 @@ import pandas as pd
 from IPython.display import display     #for display
 from hmmlearn import hmm                #for the hidden markov model
 import os 
-
+import glob
 
 
 HR_list= ['1066528_heartrate.txt', '1360686_heartrate.txt', '1449548_heartrate.txt', '1455390_heartrate.txt', '1818471_heartrate.txt', 
@@ -30,7 +30,7 @@ Sleep_HR_list = ['Sleep_HR_0.csv', 'Sleep_HR_1.csv', 'Sleep_HR_2.csv', 'Sleep_HR
                 'Sleep_HR_20.csv', 'Sleep_HR_21.csv', 'Sleep_HR_22.csv', 'Sleep_HR_23.csv', 'Sleep_HR_24.csv', 'Sleep_HR_25.csv', 'Sleep_HR_26.csv', 'Sleep_HR_27.csv', 'Sleep_HR_28.csv', 'Sleep_HR_29.csv', 
                 'Sleep_HR_30.csv']
 
-def get_data(fileName):                                                     # Returns X; holding sleep states and HR data
+def get_dataone(fileName):                                                     # Returns X; holding sleep states and HR data
 
     df_file = pd.read_csv('Data/Merged/{}'.format(fileName))                # Creates a DF out of the csv file
     indexNames = ['Unnamed: 0', 'TimeSec']
@@ -40,6 +40,31 @@ def get_data(fileName):                                                     # Re
     #del df_file['TimeSec']    
     return df_file
     #end get_data   
+
+
+def get_dataALL(fileName):                                                     # Returns X; holding sleep states and HR data
+
+    df_file = pd.read_csv('Data/{}'.format(fileName))                # Creates a DF out of the csv file
+    indexNames = ['Original Index', 'TimeSec']
+    df_file.drop(indexNames , inplace=True, axis=1) 
+    #OR 
+    #del df_file['Unnamed: 0'] 
+    #del df_file['TimeSec']    
+    return df_file
+    #end get_data   
+
+
+
+
+def combineAllCSVs():                                                       # Merges all CSV files into one. Columns: ['Original Index','TimeSec', 'SleepLVL', 'HR']
+    os.chdir("/workspace/BioRobProject/Data/Merged")
+
+    #combine all files in the list
+    combined_csv = pd.concat([pd.read_csv(f) for f in Sleep_HR_list])
+    combined_csv.columns =['Original Index','TimeSec', 'SleepLVL', 'HR']
+    #export to csv
+    os.chdir("/workspace/BioRobProject/Data")
+    combined_csv.to_csv( "combined_csv.csv", index=False, encoding='utf-8-sig')
 
 
 def convertFiles(HR_list, Sleep_list):                                      # Changes space to "," for Sleep files
