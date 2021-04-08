@@ -13,7 +13,7 @@ from functions import *     #imports our functions
 # X = sleep
 # Y = HR
 # N = number of states the hidden variable (sleep) can be in at any time t. (0-5)
-X= get_data('Sleep_HR_0.csv')                                               # Returns X and Y. X holding sleep states and Y holding HR data
+X = get_data('Sleep_HR_0.csv')                                               # Returns X and Y. X holding sleep states and Y holding HR data
 #display(X, Y)
 
 
@@ -30,6 +30,7 @@ model.fit(X)
 
 remodel = hmm.GaussianHMM(n_components=6, covariance_type="full")
 remodel.fit(X)
+# display('abcdefg')
 
 
 
