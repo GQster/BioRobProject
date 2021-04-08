@@ -35,7 +35,7 @@ predictionOutput = remodel.predict(X)
 display(predictionOutput)
 
 
-np.savetxt("foo.csv", predictionOutput, delimiter=",")                      # saves as a .csv 
+np.savetxt("mainPrediction.csv", predictionOutput, delimiter=",")                      # saves as a .csv 
 
 remodel.score(X)
 display(remodel.score(X))

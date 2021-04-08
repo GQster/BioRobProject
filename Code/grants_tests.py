@@ -1,25 +1,16 @@
 from functions import *     #imports our functions
 #from main import *          #imports HR_list and Sleep_list
 
+frames = [Sleep_HR_0.csv]
 
-# A place for me to code without messing up  stuff
-
-#X = pd.DataFrame([], columns= ['SleepLVL', 'HR'])
-#for filex in Sleep_HR_list:
-#    Xtemp = get_data(filex)                    # Returns X; holding sleep states and HR data    
-    #X.append(Xtemp)
-
-#display(X)
-
-
-X = get_data('Sleep_HR_0.csv')                                               # Returns X and Y. X holding sleep states and Y holding HR data
+X = get_data('Sleep_HR_0.csv')                                              # Returns X and Y. X holding sleep states and Y holding HR data
 print("fitting to HMM and decoding ...", end="")
 
 # Make an HMM instance and execute fit
 model = hmm.GMMHMM(n_components=6, n_iter=100)
 #.fit(X)
 #model = hmm.GaussianHMM(n_components=6, n_iter = 100, covariance_type="full").fit(X)
-model.startprob_ = np.array([0.8, 0.1, 0.025, 0.025, 0.025, 0.025])       # starting probabilities, most likely start awake, maybe in state N1 bc of -1 removal
+model.startprob_ = np.array([0.8, 0.1, 0.025, 0.025, 0.025, 0.025])         # starting probabilities, most likely start awake, maybe in state N1 bc of -1 removal
 model.transmat_ = np.array([[0.8, 0.1, 0.025, 0.025, 0.025, 0.025],
                             [0.1, 0.7, 0.1, 0.034, 0.033, 0.033],
                             [0.033, 0.1, 0.7, 0.1, 0.034, 0.033],
