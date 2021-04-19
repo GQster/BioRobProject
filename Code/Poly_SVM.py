@@ -4,8 +4,6 @@ from functions import *     #imports our functions
 X = get_dataone('Sleep_HR_0.csv')
 y = get_dataone('Sleep_HR_0.csv')
 
-
-
 del X['SleepLVL'] 
 del y['HR'] 
 display(X)
@@ -16,7 +14,7 @@ scores_train = []
 scores_test = []
 best_svc = svm.SVC(kernel='poly')
 
-best_svc.fit(X, y)
+best_svc.fit(X, y.values.ravel())
 
 X_test = X
 y_test = y
@@ -30,4 +28,3 @@ scores_train.append(tempTrain)
 print('SVM 10 fold: ')
 print('Train Results: ', scores_train)
 print('Test Results: ', scores_test)
-print('\nMean Train: ', np.mean(scores_train), '\nMean Test: ', np.mean(scores_test))
