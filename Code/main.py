@@ -50,7 +50,7 @@ display(predictionOutput)
 np.savetxt("mainPrediction.csv", predictionOutput, delimiter=",")                      # saves as a .csv 
 
 
-print('Score: ', remodel.score(X))
+print('Score: ', remodel.score(X, y))
 print('\n')
 print('Means: ','\n', remodel.means_)
 print('\n')
