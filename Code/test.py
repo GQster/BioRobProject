@@ -1,6 +1,6 @@
 from functions import *     #imports our functions
 
-
+#os.chdir('/workspace/BioRobProject/Data/Merged')
 X = get_dataone('Sleep_HR_0.csv')
 y = get_dataone('Sleep_HR_0.csv')
 
@@ -15,16 +15,9 @@ display(y)
 scores_train = []
 scores_test = []
 best_svc = svm.SVC(kernel='poly')
-#cv = KFold(n_splits=10, random_state=42, shuffle=True)
-#for train_index, test_index in cv.split(X):
-best_svc.fit(X, y)
-#	display(train_index)
-#    X_train, X_test, y_train, y_test = X.iloc[train_index], X.iloc[test_index], y[train_index], y[test_index]#
-#	X_train = np.nan_to_num(X_train)
-#	X_test = np.nan_to_num(X_test)
-#	best_svc.fit(X_train, y_train)
 
-	# Now lets do some predicitions
+best_svc.fit(X, y)
+
 X_test = X
 y_test = y
 X_train = X
