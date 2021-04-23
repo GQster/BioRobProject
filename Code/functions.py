@@ -43,7 +43,7 @@ Sleep_HR_list = ['Sleep_HR_0.csv', 'Sleep_HR_1.csv', 'Sleep_HR_2.csv', 'Sleep_HR
 
 def get_dataone(fileName):                                                     # Returns X; holding sleep states and HR data
 
-    df_file = pd.read_csv('/workspace/BioRobProject/Data/Merged/Sleep_HR_0.csv')                # Creates a DF out of the csv file
+    df_file = pd.read_csv('/workspace/BioRobProject/Data/{}'.format(fileName))                # Creates a DF out of the csv file
     indexNames = ['Unnamed: 0', 'TimeSec']
     df_file.drop(indexNames , inplace=True, axis=1) 
     #OR 
