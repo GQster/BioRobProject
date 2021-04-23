@@ -14,6 +14,11 @@ from sklearn import svm
 from sklearn.metrics import accuracy_score  
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import KFold
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import confusion_matrix
 
 
 HR_list= ['1066528_heartrate.txt', '1360686_heartrate.txt', '1449548_heartrate.txt', '1455390_heartrate.txt', '1818471_heartrate.txt', 
@@ -38,7 +43,7 @@ Sleep_HR_list = ['Sleep_HR_0.csv', 'Sleep_HR_1.csv', 'Sleep_HR_2.csv', 'Sleep_HR
 
 def get_dataone(fileName):                                                     # Returns X; holding sleep states and HR data
 
-    df_file = pd.read_csv('Data/Merged/{}'.format(fileName))                # Creates a DF out of the csv file
+    df_file = pd.read_csv('/workspace/BioRobProject/Data/Merged/Sleep_HR_0.csv')                # Creates a DF out of the csv file
     indexNames = ['Unnamed: 0', 'TimeSec']
     df_file.drop(indexNames , inplace=True, axis=1) 
     #OR 
@@ -50,7 +55,7 @@ def get_dataone(fileName):                                                     #
 
 def get_dataALL(fileName):                                                     # Returns X; holding sleep states and HR data
 
-    df_file = pd.read_csv('Data/{}'.format(fileName))                # Creates a DF out of the csv file
+    df_file = pd.read_csv('/workspace/BioRobProject/Data/{}'.format(fileName))                # Creates a DF out of the csv file
     indexNames = ['Original Index', 'TimeSec']
     df_file.drop(indexNames , inplace=True, axis=1) 
     #OR 

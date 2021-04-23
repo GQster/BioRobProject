@@ -1,11 +1,6 @@
 #Linear Discriminant Analysis With scikit-learn
 from functions import *     #imports our functions
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import confusion_matrix
-from sklearn.metrics import accuracy_score
+
 
 
 #Get data

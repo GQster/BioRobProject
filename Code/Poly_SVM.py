@@ -1,6 +1,7 @@
 from functions import *     #imports our functions
 
-#os.chdir('/workspace/BioRobProject/Data/Merged')
+
+
 X = get_dataone('Sleep_HR_0.csv')
 y = get_dataone('Sleep_HR_0.csv')
 

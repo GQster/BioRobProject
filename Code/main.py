@@ -1,6 +1,5 @@
 from functions import *     #imports our functions
-from sklearn.model_selection import cross_val_score
-from sklearn.metrics import accuracy_score
+
 
 #preprocess_data()                                                          # Fixes all our data. 
 #combineAllCSVs()                                                           # Merges all CSV files into one. Columns: ['Original Index','TimeSec', 'SleepLVL', 'HR']
@@ -9,7 +8,7 @@ from sklearn.metrics import accuracy_score
 # X = sleep
 # Y = HR
 # N = number of states the hidden variable (sleep) can be in at any time t. (0-5)
-os.chdir("/workspace/BioRobProject")
+#os.chdir("/workspace/BioRobProject")
 X = get_dataone('Sleep_HR_14.csv')                                          # Returns X and Y. X holding sleep states and Y holding HR data
 #X = get_dataALL('combined_csv.csv')   
 #display(X, Y)
