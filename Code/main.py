@@ -9,7 +9,7 @@ from functions import *     #imports our functions
 # Y = HR
 # N = number of states the hidden variable (sleep) can be in at any time t. (0-5)
 #os.chdir("/workspace/BioRobProject")
-X = get_dataone('Sleep_HR_14.csv')                                          # Returns X and Y. X holding sleep states and Y holding HR data
+X = get_data('Sleep_HR_14.csv')                                          # Returns X and Y. X holding sleep states and Y holding HR data
 #X = get_dataALL('combined_csv.csv')   
 #display(X, Y)
 
@@ -75,8 +75,8 @@ scores_train = []
 scores_test = []
 #best_svc = svm.SVC(kernel='poly')
 #best_svc.fit(X, y)
-X = get_dataone('Sleep_HR_14.csv')
-y = get_dataone('Sleep_HR_14.csv')
+X = get_data('Sleep_HR_14.csv')
+y = get_data('Sleep_HR_14.csv')
 #X = get_dataALL('Sleep_HR_14.csv')
 #y = get_dataALL('Sleep_HR_14.csv')
 X_test = X

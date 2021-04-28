@@ -7,8 +7,8 @@ from functions import *     #imports our functions
 #X = get_dataone('Sleep_HR_0.csv')
 #y = get_dataone('Sleep_HR_0.csv')
 
-X = get_dataALL('combined_csv.csv')
-y = get_dataALL('combined_csv.csv')
+X = get_data('combined_csv.csv')
+y = get_data('combined_csv.csv')
 
 del X['SleepLVL'] 
 del y['HR'] 
@@ -42,4 +42,4 @@ y_pred = classifier.predict(X_test)
 #Check accuracy
 cm = confusion_matrix(y_test, y_pred)
 #print(cm)
-print('Accuracy' + str(accuracy_score(y_test, y_pred)))
+print('Accuracy: ' + str(accuracy_score(y_test, y_pred)))

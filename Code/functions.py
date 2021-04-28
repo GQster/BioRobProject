@@ -21,11 +21,13 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix
 
 #for CNN:
-import tensorflow
-from keras.utils import to_categorical
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Conv2D, Flatten
-import scipy as sp
+from sklearn.datasets import make_regression
+from sklearn.preprocessing import StandardScaler
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.optimizers import SGD
+from matplotlib import pyplot
+
 
 
 HR_list= ['1066528_heartrate.txt', '1360686_heartrate.txt', '1449548_heartrate.txt', '1455390_heartrate.txt', '1818471_heartrate.txt', 
@@ -48,28 +50,18 @@ Sleep_HR_list = ['Sleep_HR_0.csv', 'Sleep_HR_1.csv', 'Sleep_HR_2.csv', 'Sleep_HR
                 'Sleep_HR_20.csv', 'Sleep_HR_21.csv', 'Sleep_HR_22.csv', 'Sleep_HR_23.csv', 'Sleep_HR_24.csv', 'Sleep_HR_25.csv', 'Sleep_HR_26.csv', 'Sleep_HR_27.csv', 'Sleep_HR_28.csv', 'Sleep_HR_29.csv', 
                 'Sleep_HR_30.csv']
 
-def get_dataone(fileName):                                                     # Returns X; holding sleep states and HR data
-
-    df_file = pd.read_csv('/workspace/BioRobProject/Data/Merged/{}'.format(fileName))                # Creates a DF out of the csv file
-    indexNames = ['Unnamed: 0', 'TimeSec']
-    df_file.drop(indexNames , inplace=True, axis=1) 
-    #OR 
-    #del df_file['Unnamed: 0'] 
-    #del df_file['TimeSec']    
+def get_data(fileName):
+    if fileName == "combined_csv.csv":      #replaced get_dataALL
+        df_file = pd.read_csv('/workspace/BioRobProject/Data/{}'.format(fileName))                # Creates a DF out of the csv file
+        indexNames = ['Original Index', 'TimeSec']
+        df_file.drop(indexNames , inplace=True, axis=1) 
+        
+    else:                   #replaces get_dataone
+        df_file = pd.read_csv('/workspace/BioRobProject/Data/Merged/{}'.format(fileName))                # Creates a DF out of the csv file
+        indexNames = ['Unnamed: 0', 'TimeSec']
+        df_file.drop(indexNames , inplace=True, axis=1)
     return df_file
-    #end get_data   
 
-
-def get_dataALL(fileName):                                                     # Returns X; holding sleep states and HR data
-
-    df_file = pd.read_csv('/workspace/BioRobProject/Data/{}'.format(fileName))                # Creates a DF out of the csv file
-    indexNames = ['Original Index', 'TimeSec']
-    df_file.drop(indexNames , inplace=True, axis=1) 
-    #OR 
-    #del df_file['Unnamed: 0'] 
-    #del df_file['TimeSec']    
-    return df_file
-    #end get_data   
 
 
 

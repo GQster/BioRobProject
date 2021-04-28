@@ -2,7 +2,7 @@ from functions import *     #imports our functions
 #from main import *          #imports HR_list and Sleep_list
 
 #X = get_dataALL('combined_csv.csv') 
-X = get_dataone('Sleep_HR_14.csv')                                              # Returns X and Y. X holding sleep states and Y holding HR data
+X = get_data('Sleep_HR_14.csv')                                              # Returns X and Y. X holding sleep states and Y holding HR data
 print("fitting to HMM and decoding ...", end="")
 
 # Make an HMM instance and execute fit
