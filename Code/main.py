@@ -45,11 +45,23 @@ remodel.monitor_
 predictionOutput = remodel.predict(X)
 display(predictionOutput)
 
+extra_val = predictionOutput[-1]
+extra_val_index = 1 + len(predictionOutput)
+#display(extra_val)
+#display(len(predictionOutput))
+#display(extra_val_index)
+#predictionOutput[extra_val_index] = predictionOutput[extra_val]
+#predictionOutput.loc[len(predictionOutput.index)] = [extra_val]
+display(type(predictionOutput))
+display(len(predictionOutput))
+predictionOutput = np.append(predictionOutput, 0)
+display(len(predictionOutput))
+
 
 np.savetxt("mainPrediction.csv", predictionOutput, delimiter=",")                      # saves as a .csv 
 
 
-print('Score: ', remodel.score(X, y))
+print('Score: ', np.exp(remodel.score(X)))
 print('\n')
 print('Means: ','\n', remodel.means_)
 print('\n')
@@ -65,10 +77,17 @@ scores_test = []
 #best_svc.fit(X, y)
 X = get_dataone('Sleep_HR_14.csv')
 y = get_dataone('Sleep_HR_14.csv')
+#X = get_dataALL('Sleep_HR_14.csv')
+#y = get_dataALL('Sleep_HR_14.csv')
 X_test = X
 y_test = predictionOutput
 X_train = X
 y_train = y
+
+display("Length X_test: " + len(X_test))
+
+
+
 #tempTest = accuracy_score(X_test, y_test)
 #tempTrain = accuracy_score(X_train, y_train)
 #scores_test.append(tempTest)
