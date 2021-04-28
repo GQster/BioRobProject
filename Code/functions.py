@@ -8,7 +8,7 @@ from IPython.display import display     #for display
 from hmmlearn import hmm                #for the hidden markov model
 import os 
 import glob
-import scipy
+#import scipy
 import sklearn
 from sklearn import svm
 from sklearn.metrics import accuracy_score  
@@ -19,6 +19,13 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import confusion_matrix
+
+#for CNN:
+import tensorflow
+from keras.utils import to_categorical
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Conv2D, Flatten
+import scipy as sp
 
 
 HR_list= ['1066528_heartrate.txt', '1360686_heartrate.txt', '1449548_heartrate.txt', '1455390_heartrate.txt', '1818471_heartrate.txt', 
@@ -43,7 +50,7 @@ Sleep_HR_list = ['Sleep_HR_0.csv', 'Sleep_HR_1.csv', 'Sleep_HR_2.csv', 'Sleep_HR
 
 def get_dataone(fileName):                                                     # Returns X; holding sleep states and HR data
 
-    df_file = pd.read_csv('/workspace/BioRobProject/Data/{}'.format(fileName))                # Creates a DF out of the csv file
+    df_file = pd.read_csv('/workspace/BioRobProject/Data/Merged/{}'.format(fileName))                # Creates a DF out of the csv file
     indexNames = ['Unnamed: 0', 'TimeSec']
     df_file.drop(indexNames , inplace=True, axis=1) 
     #OR 
@@ -143,3 +150,87 @@ def preprocess_data():                                                      # Fi
     # Sleep_HR files with negatives: 1, 2, 3, 4, 5, 6, 8, 10, 12, 15, 16, 17, 19, 21, 22, 24, 25, 26, 27,28
     dataChecker()                                                           # Checks for and deletes lines with SleepLVL values of -1
     #end Fixdata
+
+
+
+
+
+
+
+
+#************************************
+#Used in CNN.py
+def sliding_window(df, window_size, stride, fs = 1000):
+    # This function only works for continous dfs (not multiple combined participant dfs)
+    dfs = []
+    df_cop = df.copy() # create copy of dataframe
+    starting_index = df_cop.index[0]
+    ending_index = int(df_cop.index[0] + fs*window_size)
+    while ending_index <= df_cop.index[-1]:
+        windowed_df = df_cop.loc[(df_cop.index >= starting_index) & (df_cop.index <= ending_index)] 
+        dfs.append(windowed_df)
+        starting_index = int(starting_index + fs*stride)
+        ending_index = int(ending_index + fs*stride)
+    return dfs
+
+def format_cnn_data(windows, x_channels = ['HR'], y_channel=['SleepLVL']):
+    # This function takes in a list of window dfs and formats the data into a shape keras expects
+    # Shape: (n_samples, n_window_samples, n_features, 1)
+    data_x = []
+    data_y = []
+    for window in windows:
+        window_x = window[x_channels].values
+        window_x = window_x.reshape(-1, window_x.shape[0], window_x.shape[1], 1)
+        window_y =  max(window[y_channel].values)
+        if len(data_x) == 0:
+            data_x = window_x
+            data_y = window_y
+        else:
+            data_x = np.vstack((data_x, window_x))
+            data_y = np.vstack((data_y, window_y))
+    # We need to categorize our class labels
+    ###############################################################################
+    #added the try and expect ValuError to deal with empyt array
+    print("x")
+    display(data_x)
+    display("y",data_y)
+    try:                                        
+      data_y = to_categorical(data_y)
+    except ValueError:  #raised if `y` is empty.
+      pass
+    return data_x, data_y
+
+def filteremg(emg, low_pass=10, sfreq=1000, high_band=20, low_band=450):
+    """
+    emg: EMG data
+    high: high-pass cut off frequency
+    low: low-pass cut off frequency
+    sfreq: sampling frequency
+    """
+    # normalise cut-off frequencies to sampling frequency
+    high_band = high_band/(sfreq/2)
+    low_band = low_band/(sfreq/2)
+    
+    # create bandpass filter for EMG
+    b1, a1 = sp.signal.butter(4, [high_band,low_band], btype='bandpass')
+    
+    # process EMG signal: filter EMG
+    emg_filtered = sp.signal.filtfilt(b1, a1, emg)    
+    
+    # process EMG signal: rectify
+    emg_rectified = abs(emg_filtered)
+    
+    # create lowpass filter and apply to rectified signal to get EMG envelope
+    low_pass = low_pass/(sfreq/2)
+    b2, a2 = sp.signal.butter(4, low_pass, btype='lowpass')
+    emg_envelope = sp.signal.filtfilt(b2, a2, emg_rectified)
+    
+    return emg_envelope
+
+
+def FilterDF(datadf):         #filters the DF
+  filtdf = datadf.copy()
+  #emg_keys = ['EMG' + str(i) for i in range(1, 17)]
+  keys = ['SleepLVL', 'HR']
+  filtdf[keys] = filtdf[keys].apply(filteremg)
+  return filtdf

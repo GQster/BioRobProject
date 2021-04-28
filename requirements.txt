@@ -6,3 +6,6 @@ openpyxl
 display
 hmm
 hmmlearn
+tensorflow
+matplotlib
+keras
