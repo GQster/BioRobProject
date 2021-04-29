@@ -27,7 +27,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.optimizers import SGD
 from matplotlib import pyplot
-
+#import tensorflow as tf
 
 
 HR_list= ['1066528_heartrate.txt', '1360686_heartrate.txt', '1449548_heartrate.txt', '1455390_heartrate.txt', '1818471_heartrate.txt', 

@@ -53,6 +53,7 @@ def modelTest():
     test_mse = model.evaluate(testX, testy, verbose=0)
     #print("Loss Values:")
     print('Train: %.3f, Test: %.3f' % (train_mse, test_mse))
+
     return train_mse, test_mse
 train = 0
 test = 0
@@ -61,12 +62,9 @@ for x in range(n):
     traintemp, testtemp = modelTest()
     train +=traintemp
     test += testtemp
+
+print("Loss Values:")
 print('AVG: Train: %.3f, Test: %.3f' % (train/n, test/n))
-
-
-
-
-
 
 
 
