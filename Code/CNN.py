@@ -35,7 +35,7 @@ trainy, testy = np.array_split(y,[n_train])
 #display("TestX", testX)
 #display("Testy", testy)
 
-def modelTest():
+def modelTest(epochs = 10, verbose = 0):
 # define model
     model = Sequential()
     model.add(Dense(64, input_dim=1, activation='relu', kernel_initializer='he_uniform'))
@@ -47,7 +47,7 @@ def modelTest():
     #evalModel(epochs = 5, verbose = 1)
 
     # fit model
-    history = model.fit(trainX, trainy, validation_data=(testX, testy), epochs=2, verbose=0)
+    history = model.fit(trainX, trainy, validation_data=(testX, testy), epochs=epochs, verbose=verbose)
     # evaluate the model
     train_mse = model.evaluate(trainX, trainy, verbose=0)
     test_mse = model.evaluate(testX, testy, verbose=0)
@@ -59,7 +59,7 @@ train = 0
 test = 0
 n = 5
 for x in range(n):
-    traintemp, testtemp = modelTest()
+    traintemp, testtemp = modelTest(epochs=1)
     train +=traintemp
     test += testtemp
 
