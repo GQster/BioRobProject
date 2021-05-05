@@ -42,4 +42,12 @@ y_pred = classifier.predict(X_test)
 #Check accuracy
 cm = confusion_matrix(y_test, y_pred)
 #print(cm)
-print('Accuracy: ' + str(accuracy_score(y_test, y_pred)))
+#print('Accuracy: ' + str(accuracy_score(y_test, y_pred)))
+
+
+y_testnp = np.asarray(y_test)                               # converts pandas to numpy array
+y_prednp = np.asarray(y_pred)                                   # converts pandas to numpy array
+
+
+display(Accuracy_of_actual(y_testnp, y_prednp))
+display(Accuracy_of_awake(y_testnp, y_prednp))
