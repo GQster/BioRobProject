@@ -2,8 +2,8 @@ from functions import *     #imports our functions
 
 
 
-X = get_data('Sleep_HR_0.csv')
-y = get_data('Sleep_HR_0.csv')
+X = get_data('combined_csv.csv')
+y = get_data('combined_csv.csv')
 
 del X['SleepLVL'] 
 del y['HR'] 
