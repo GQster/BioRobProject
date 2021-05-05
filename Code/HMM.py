@@ -18,6 +18,9 @@ remodel.fit(X)
 remodel.monitor_
 predictionOutput = remodel.predict(X)
 
+# Once we train a model, we will want to save it
+with open("all_hmm.pkl", "wb") as f: pickle.dump(remodel, f)
+
 # Saves as a .csv file
 np.savetxt("HMMPrediction.csv", predictionOutput, delimiter=",")
 

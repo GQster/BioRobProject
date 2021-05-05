@@ -1,7 +1,8 @@
 import pylsl
 import asyncio
 import logging
-from Util import util
+from keras.utils import to_categorical
+from Util import util, ml
 import pandas as pd
 import os
 from configparser import ConfigParser

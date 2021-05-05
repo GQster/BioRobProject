@@ -47,3 +47,6 @@ prednp = np.asarray(pred)                                   # converts pandas to
 
 display(Accuracy_of_actual(y_testnp, prednp))
 display(Accuracy_of_awake(y_testnp, prednp))
+
+# Once we train a model, we will want to save it
+best_svc.save('Saved_Models/all_Poly_SVM')

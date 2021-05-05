@@ -4,6 +4,7 @@ from pylsl import StreamInfo, StreamOutlet
 import pandas as pd
 
 
+
 def create_stream_from_csv(csv_df, type, sampling_freq, dtype='float32', stream_prefix='stream1'):
     header = list(csv_df.columns)
     n_channels = len(header)
@@ -17,24 +18,44 @@ def create_stream_from_csv(csv_df, type, sampling_freq, dtype='float32', stream_
     return StreamOutlet(info)
 
 
-directory = 'Data/'
-EMGCSV = pd.read_csv(directory + 'Myo/emgData/RawEMG/Bangli/EMG011.txt', sep= ' ',
-                      names=['EMG1', 'EMG2', 'EMG3', 'EMG4', 'EMG5', 'EMG6', 'EMG7','EMG8',
-                             'EMG9', 'EMG10', 'EMG11', 'EMG12', 'EMG13', 'EMG14', 'EMG15','EMG16',
-                             'Class', 'Unknown'])
+def get_data(fileName):
+    if fileName == "combined_csv.csv":      #replaced get_dataALL
+        df_file = pd.read_csv('/workspace/BioRobProject/Data/{}'.format(fileName))                # Creates a DF out of the csv file
+        indexNames = ['Original Index', 'TimeSec']
+        df_file.drop(indexNames , inplace=True, axis=1) 
+        
+    else:                   #replaces get_dataone
+        df_file = pd.read_csv('/workspace/BioRobProject/Data/Merged/{}'.format(fileName))                # Creates a DF out of the csv file
+        indexNames = ['Unnamed: 0', 'TimeSec']
+        df_file.drop(indexNames , inplace=True, axis=1)
+    return df_file
 
-fs = 1000
-CSVStream = create_stream_from_csv(EMGCSV, type='EEG', sampling_freq=512)
 
-EMGCSV = EMGCSV.astype('float32')
-print(EMGCSV.dtypes)
+HRCSV = get_data('combined_csv.csv')
+
+
+y = get_data('combined_csv.csv')
+
+# split into input (X) and output (y) variables
+del HRCSV['SleepLVL'] 
+del y['HR'] 
+#print(HRCSV)
+#print(y)
+
+#once per 30 seconds = 0.03333 Hz
+fs = 15
+CSVStream = create_stream_from_csv(HRCSV, type='Markers', sampling_freq=0.03333)           #not sue on the type
+
+HRCSV = HRCSV.astype('float32')
+print(HRCSV.dtypes)
+
 
 print("now sending data...")
-for idx, sample in EMGCSV.iterrows():
-    #print(sample.values)
-    if (sample.values[5] < -213748364) or (sample.values[5] > 2147483647):
-        print('Here')
+for idx, sample in HRCSV.iterrows():
+    print(sample.values)
     CSVStream.push_sample(sample.values)
-    time.sleep(1/fs)
+    time.sleep(fs)
 
 print('End of CSV Reached, Closing Stream...')
+
+

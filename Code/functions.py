@@ -29,6 +29,9 @@ from keras.optimizers import SGD
 from matplotlib import pyplot
 #import tensorflow as tf
 
+#for HMM
+import pickle
+
 
 HR_list= ['1066528_heartrate.txt', '1360686_heartrate.txt', '1449548_heartrate.txt', '1455390_heartrate.txt', '1818471_heartrate.txt', 
                 '2598705_heartrate.txt', '2638030_heartrate.txt', '3509524_heartrate.txt', '3997827_heartrate.txt', '4018081_heartrate.txt', 

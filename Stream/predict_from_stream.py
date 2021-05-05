@@ -1,7 +1,10 @@
 import pylsl
 import asyncio
 import logging
+#from keras.utils import to_categorical
 from Util import util, ml
+#import Util.util
+#import Util.ml
 import pandas as pd
 from pandas import Timestamp
 from datetime import datetime, timedelta
@@ -11,20 +14,13 @@ from configparser import ConfigParser
 import numpy as np
 import tensorflow
 
+
+
+
 logger = logging.getLogger(__name__)
 
-configObject = ConfigParser()
-configObject.read("config.ini")
-fileInfo = configObject['File Info']
-modelInfo = configObject['Model Info']
-predInfo = configObject['Prediction Info']
 
-
-def get_file_info_from_config():
-    return fileInfo['directory'], fileInfo['participant_name'], fileInfo['participant_session'], fileInfo['file_name_prefix']
-
-
-async def save_current_streams(directory, participant_name, participant_session, file_name_prefix):
+async def save_current_streams(directory, dataPath, file_name_prefix):
     stream_names = []
     print("looking for streams")
     streams = pylsl.resolve_streams()
@@ -36,7 +32,7 @@ async def save_current_streams(directory, participant_name, participant_session,
     # Initialize Inlets and Dataframes
     inlets = []
     df_dict = {}
-    path = os.path.join(directory, participant_name, participant_session)
+    path = os.path.join(directory, dataPath)
     for stream in streams:
         inlets.append(pylsl.StreamInlet(stream))
         header = util.obtain_stream_channel_names(stream)
@@ -51,16 +47,17 @@ async def save_current_streams(directory, participant_name, participant_session,
 
     # Initialize Model and Pipeline
     clf = ml.emg_clf()
-    clf.load_model(modelInfo['directory'] + modelInfo['model'])
+    #clf.load_model(modelInfo['directory'] + modelInfo['model'])
+    clf.load_model('Saved_Models/all_cnn')
     pipeline = ml.ml_pipeline()
     pipeline.add(ml.filter_all_channels)
     pipeline.add(clf.format_cnn_data)
     pipeline.add(clf.model.predict)
     pipeline.add(np.argmax)
 
-    window_size = int(predInfo['window'])
-    stride = int(predInfo['stride'])
-    input_x = int(predInfo['input_x'])
+    window_size = int(5)
+    stride = int(1)
+    input_x = int(5001)
 
     inlet = inlets[0]
     inlet_name = inlet.info().name()
@@ -124,14 +121,14 @@ async def save_current_streams(directory, participant_name, participant_session,
 
 
 
-
-
-
-
-
 async def main():
-    directory, participant_name, participant_session, file_name_prefix = get_file_info_from_config()
-    await save_current_streams(directory, participant_name, participant_session, file_name_prefix)
+    #directory, dataPath, file_name_prefix = get_file_info_from_config()
+    directory = "/workspace/BioRobProject/Data/"
+    dataPath = "Sleep_HR_0.csv"
+    #dataPath = "combined_csv.csv"
+    file_name_prefix = "Live_Stream"
+    await save_current_streams(directory, dataPath, file_name_prefix)
+
 
 
 if __name__ == '__main__':

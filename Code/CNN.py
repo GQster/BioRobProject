@@ -45,6 +45,11 @@ model.compile(loss='mean_squared_logarithmic_error', optimizer=opt)
 #changing number of epochs doesnt seem to increase accuracy 
 evalModel(epochs = 3)                                   #trains the model
 
+
+# Once we train a model, we will want to save it
+#model.save('Saved_Models/all_cnn')
+
+
 pred = model.predict(testX)                             # getting predictions
 predy = np.argmax(pred, axis = 1)
 
