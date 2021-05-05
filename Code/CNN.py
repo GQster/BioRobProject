@@ -15,7 +15,7 @@ def evalModel(epochs = 10, verbose = 1):
 
 
 
-def CNN_Accuracy_of_actual(testY, predyR):
+def CNN_Accuracy_of_actual(testY, predy):
 	score = 0
 	for i in range(len(predy)):
 		if predy[i] == testY[i]:
