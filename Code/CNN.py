@@ -14,53 +14,6 @@ def evalModel(epochs = 10, verbose = 1):
 
 
 
-
-def CNN_Accuracy_of_actual(testY, predy):
-	score = 0
-	for i in range(len(predy)):
-		if predy[i] == testY[i]:
-			score +=1
-	score /=len(predy)
-	print("Accuracy Score of exact values (0-5): ")
-	return score
-
-
-
-
-def CNN_Accuracy_of_awake(testY, predyR):
-    awakePred=[None] * len(testY)
-    for i in range(round(len(predyR))):
-        #print(i)
-        if predyR[i]> 0:
-            awakePred[i] = 0        # 0 is asleep
-        else:
-            awakePred[i] = 1        # 1 is awake
-    
-    awakeActual=[None] * len(testY)
-    results=[None] * len(testY)
-    score = 0
-    for i in range(len(testY)):
-        if testY[i]> 0:
-            awakeActual[i] = 0        # 0 is asleep
-        else:
-            awakeActual[i] = 1        # 1 is awake
-        
-        if awakePred[i] == awakeActual[i]:
-            results[i] = 1              # 1 is correct
-            score += 1                  # updates the score
-        else: 
-            results[i] = 0
-    #Score
-    score /=len(predyR)
-    
-    print("Accuracy Score of awake vs sleeping: ")
-    return score    
-	
-
-
-
-
-
 #X = get_data('Sleep_HR_0.csv')
 #y = get_data('Sleep_HR_0.csv')
 
@@ -102,5 +55,5 @@ testY = np.asarray(testy)                               # converts pandas to num
 
 
 # Calc accuracies
-display(CNN_Accuracy_of_awake(testY, predy))
-display(CNN_Accuracy_of_actual(testY, predy))
+display(Accuracy_of_awake(testY, predy))
+display(Accuracy_of_actual(testY, predy))

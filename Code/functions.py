@@ -143,3 +143,47 @@ def preprocess_data():                                                      # Fi
     dataChecker()                                                           # Checks for and deletes lines with SleepLVL values of -1
     #end Fixdata
 
+
+
+
+
+def Accuracy_of_actual(y_test, y_train):
+	score = 0
+	for i in range(len(y_test)):
+		if y_train[i] == y_test[i]:
+			score +=1
+	score /=len(y_test)
+	print("Accuracy Score of exact values (0-5): ")
+	return score
+
+
+
+
+def Accuracy_of_awake(testY, predyR):
+    awakePred=[None] * len(testY)
+    for i in range(round(len(predyR))):
+        #print(i)
+        if predyR[i]> 0:
+            awakePred[i] = 0        # 0 is asleep
+        else:
+            awakePred[i] = 1        # 1 is awake
+    
+    awakeActual=[None] * len(testY)
+    results=[None] * len(testY)
+    score = 0
+    for i in range(len(testY)):
+        if testY[i]> 0:
+            awakeActual[i] = 0        # 0 is asleep
+        else:
+            awakeActual[i] = 1        # 1 is awake
+        
+        if awakePred[i] == awakeActual[i]:
+            results[i] = 1              # 1 is correct
+            score += 1                  # updates the score
+        else: 
+            results[i] = 0
+    #Score
+    score /=len(predyR)
+    
+    print("Accuracy Score of awake vs sleeping: ")
+    return score    
