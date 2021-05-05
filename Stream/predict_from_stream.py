@@ -55,7 +55,7 @@ async def save_current_streams(directory, dataPath, file_name_prefix):
     pipeline.add(clf.model.predict)
     pipeline.add(np.argmax)
 
-    window_size = int(5)
+    #window_size = int(1)
     stride = int(3)
     input_x = int(2)
 
@@ -97,9 +97,6 @@ async def save_current_streams(directory, dataPath, file_name_prefix):
                 stream_df = windowed_df
                 # predict using our pipeline
                 prediction = pipeline.predict(windowed_df)
-                #print("windor size")
-                #print(windowed_df)
-                #print('comtinue\n\n')
                 # determine the true class from the windowed_df
                 target = max(windowed_df['HR'].values)
                 # get the current time
