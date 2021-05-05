@@ -50,14 +50,14 @@ async def save_current_streams(directory, dataPath, file_name_prefix):
     #clf.load_model(modelInfo['directory'] + modelInfo['model'])
     clf.load_model('Saved_Models/all_cnn')
     pipeline = ml.ml_pipeline()
-    pipeline.add(ml.filter_all_channels)
+    #pipeline.add(ml.filter_all_channels)
     pipeline.add(clf.format_cnn_data)
     pipeline.add(clf.model.predict)
     pipeline.add(np.argmax)
 
     window_size = int(5)
-    stride = int(1)
-    input_x = int(5001)
+    stride = int(3)
+    input_x = int(2)
 
     inlet = inlets[0]
     inlet_name = inlet.info().name()
@@ -69,7 +69,7 @@ async def save_current_streams(directory, dataPath, file_name_prefix):
     while True:
         # get a new sample (you can also omit the timestamp part if you're not
         # interested in it)
-        samples, timestamps = inlet.pull_chunk()
+        samples, timestamps = inlet.pull_chunk()                            #this line pulls from the stream
         if timestamps:
 
             # Save samples to csv
@@ -91,17 +91,22 @@ async def save_current_streams(directory, dataPath, file_name_prefix):
             # Save predictions every update
             if Timestamp(0).now() >= next_update:
                 # get the last input_x samples
-                windowed_df = stream_df.iloc[-input_x:]
+                #windowed_df = stream_df.iloc[-input_x:]
+                windowed_df = stream_df.iloc[-1:]
                 # update stream_df to manage space
                 stream_df = windowed_df
                 # predict using our pipeline
                 prediction = pipeline.predict(windowed_df)
+                #print("windor size")
+                #print(windowed_df)
+                #print('comtinue\n\n')
                 # determine the true class from the windowed_df
-                target = max(windowed_df['Class'].values)
+                target = max(windowed_df['HR'].values)
                 # get the current time
                 time = Timestamp(0).now()
                 # print everything
-                print(time, prediction, target)
+                print("Time                            Prediction   HR data point")
+                print(time, "    ",prediction, "          ",target)
 
                 # Initialize a new dataframe and add our data to it
                 pred_df = pd.DataFrame()

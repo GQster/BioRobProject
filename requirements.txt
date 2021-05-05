@@ -1,5 +1,6 @@
 # Run: pip3 install -r requirements.txt
 
+asyncio
 numpy
 pandas
 openpyxl
@@ -9,3 +10,9 @@ hmmlearn
 tensorflow
 matplotlib
 keras
+pylsl
+logging
+datetime
+os
+configparser
+pickle

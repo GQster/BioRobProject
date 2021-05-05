@@ -5,3 +5,4 @@ Bio Robotics group project
 here
 
 
+# command: python3 /Code/HMM.py

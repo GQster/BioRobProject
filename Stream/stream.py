@@ -43,8 +43,8 @@ del y['HR']
 #print(y)
 
 #once per 30 seconds = 0.03333 Hz
-fs = 15
-CSVStream = create_stream_from_csv(HRCSV, type='Markers', sampling_freq=0.03333)           #not sue on the type
+fs = 3
+CSVStream = create_stream_from_csv(HRCSV, type='Markers', sampling_freq=0.3333)           #not sue on the type
 
 HRCSV = HRCSV.astype('float32')
 print(HRCSV.dtypes)

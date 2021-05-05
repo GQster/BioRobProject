@@ -1,15 +1,17 @@
 from functions import *     #imports our functions
 
 
-
+# Get Data
 X = get_data('combined_csv.csv')
 y = get_data('combined_csv.csv')
 
+# Format Data (X = HR data, y = SleepLVL data)
 del X['SleepLVL'] 
 del y['HR'] 
 #display(X)
 #display(y)
 
+# Set-Up Model
 print("Training SVM...(takes few mintues)")
 
 scores_train = []
@@ -50,3 +52,6 @@ display(Accuracy_of_awake(y_testnp, prednp))
 
 # Once we train a model, we will want to save it
 best_svc.save('Saved_Models/all_Poly_SVM')
+
+# Did not save, but does run
+# Takes 2 HOURS and 25 MINUTES to run through the combined_csv data.
