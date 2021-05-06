@@ -9,6 +9,10 @@ Grant Croft
 Patrick Santorella-Doyle
 
 
+
+
+
+
 Run command: python3 /Code/CNN.py
 
 CNN modle saved in: Saved_Models
