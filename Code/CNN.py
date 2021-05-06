@@ -12,11 +12,7 @@ def evalModel(epochs = 10, verbose = 1):
     print('Train: %.3f, Test: %.3f' % (train_mse, test_mse))
     return history #end of evalModel
 
-
-
-#X = get_data('Sleep_HR_0.csv')
-#y = get_data('Sleep_HR_0.csv')
-
+# Get Data
 X = get_data('combined_csv.csv')
 y = get_data('combined_csv.csv')
 
@@ -38,26 +34,15 @@ model.add(Dense(5, activation='softmax'))
 opt = SGD(lr=0.01, momentum=0.9)
 model.compile(loss='mean_squared_logarithmic_error', optimizer=opt)
 
-
-
-
-
 #changing number of epochs doesnt seem to increase accuracy 
 evalModel(epochs = 3)                                   #trains the model
 
-
-# Once we train a model, we will want to save it
-#model.save('Saved_Models/all_cnn')
-
-
-pred = model.predict(testX)                             # getting predictions
+# Getting Predictions
+pred = model.predict(testX)                             
 predy = np.argmax(pred, axis = 1)
 
-#display(predy)
-
-testY = np.asarray(testy)                               # converts pandas to numpy array
-
-
+# Converts Pandas to numpy Array
+testY = np.asarray(testy)
 
 # Calc accuracies
 display(Accuracy_of_awake(testY, predy))

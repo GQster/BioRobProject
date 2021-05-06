@@ -8,7 +8,6 @@ from IPython.display import display     #for display
 from hmmlearn import hmm                #for the hidden markov model
 import os 
 import glob
-#import scipy
 import sklearn
 from sklearn import svm
 from sklearn.metrics import accuracy_score  
@@ -27,7 +26,6 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.optimizers import SGD
 from matplotlib import pyplot
-#import tensorflow as tf
 
 #for HMM
 import pickle
@@ -64,9 +62,6 @@ def get_data(fileName):
         indexNames = ['Unnamed: 0', 'TimeSec']
         df_file.drop(indexNames , inplace=True, axis=1)
     return df_file
-
-
-
 
 
 def combineAllCSVs():                                                       # Merges all CSV files into one. Columns: ['Original Index','TimeSec', 'SleepLVL', 'HR']
@@ -147,9 +142,6 @@ def preprocess_data():                                                      # Fi
     #end Fixdata
 
 
-
-
-
 def Accuracy_of_actual(y_test, y_train):
 	score = 0
 	for i in range(len(y_test)):
@@ -158,8 +150,6 @@ def Accuracy_of_actual(y_test, y_train):
 	score /=len(y_test)
 	print("Accuracy Score of exact values (0-5): ")
 	return score
-
-
 
 
 def Accuracy_of_awake(testY, predyR):

@@ -1,9 +1,12 @@
 from functions import *     #imports our functions
 
-
 # Get Data
 X = get_data('combined_csv.csv')
 y = get_data('combined_csv.csv')
+
+#X = get_data('Sleep_HR_0.csv')                #if you swap lines 4 and 5 with these two itll only take about 3 minutes to run (VS 2.5 hours)
+#y = get_data('Sleep_HR_0.csv')
+
 
 # Format Data (X = HR data, y = SleepLVL data)
 del X['SleepLVL'] 
@@ -12,7 +15,7 @@ del y['HR']
 #display(y)
 
 # Set-Up Model
-print("Training SVM...(takes few mintues)")
+print("Training SVM...(takes 2.5 hours)")
 
 scores_train = []
 scores_test = []
@@ -28,7 +31,7 @@ tempTrain = accuracy_score(best_svc.predict(X_train), y_train)
 scores_train.append(tempTrain)
 
 
-
+#get test data
 X = get_data('Sleep_HR_10.csv')
 y = get_data('Sleep_HR_10.csv')
 del X['SleepLVL'] 
@@ -43,10 +46,11 @@ print('SVM: ')
 print('Train Results: ', scores_train)
 print('Test Results: ', scores_test)
 
+# Converts Pandas df to Numpy Array
+y_testnp = np.asarray(y_test)
+prednp = np.asarray(pred)
 
-y_testnp = np.asarray(y_test)                               # converts pandas to numpy array
-prednp = np.asarray(pred)                                   # converts pandas to numpy array
-
+# Display Accuracy
 display(Accuracy_of_actual(y_testnp, prednp))
 display(Accuracy_of_awake(y_testnp, prednp))
 
