@@ -3,9 +3,7 @@ Coded using Gitpod:
 
 # BioRobProject
 
-Grant Croft
-
-Patrick Santorella-Doyle
+Created by: Patrick Santorella-Doyle & Grant Croft
 
 
 
