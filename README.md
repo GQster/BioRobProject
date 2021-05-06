@@ -19,3 +19,6 @@ Data used is located in: Data
 Code for models loacted in: Code
 
 Code for live stream located in: Stream
+
+
+List of libraries in requirements.txt
