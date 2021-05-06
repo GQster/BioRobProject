@@ -2,7 +2,8 @@
 
 # BioRobProject
 Bio Robotics group project
-here
+Grant Croft
+Patrick Santorella-Doyle
 
 
 # command: python3 /Code/HMM.py
