@@ -13,6 +13,5 @@ keras
 pylsl
 logging
 datetime
-os
 configparser
 pickle
